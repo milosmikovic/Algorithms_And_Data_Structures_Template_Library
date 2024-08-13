@@ -276,18 +276,23 @@ int main(int argc, char **argv)
 
     // std::cout << vec << std::endl;
 
-    adstl::sllist<int> list;
-    list.push_back(1);
-    list.push_back(2);
-    list.push_back(3);
-    std::cout << list << std::endl;
-    list.reverse();
-    std::cout << list << std::endl;
+    // adstl::sllist<int> list;
+    // list.push_back(1);
+    // list.push_back(2);
+    // list.push_back(3);
+    // std::cout << list << std::endl;
+    // list.reverse();
+    // std::cout << list << std::endl;
     
-    for(adstl::sllist<int>::iterator item = list.begin();item != list.end();++item)
-    {
-        std::cout << *item << std::endl;
-    }
+    // for(adstl::sllist<int>::iterator item = list.begin();item != list.end();++item)
+    // {
+    //     std::cout << *item << std::endl;
+    // }
+
+
+    const adstl::vector<int> vec;
+    auto it = vec.begin();
+
     
     
 

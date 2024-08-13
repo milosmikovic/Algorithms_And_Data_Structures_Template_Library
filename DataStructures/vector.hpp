@@ -57,9 +57,11 @@ class vector final
         size_t size() const { return first_free - elements; }
         size_t capacity() const { return cap - elements; }
 
-        // iterator interface
+        // iterator interface (NOTE* IN STL begin() return iterator for non const and const_iterator for const objects, how to achive that?)
         iterator begin() { return iterator(elements); }
         iterator end() { return iterator(first_free); }
+        const_iterator begin() const { return const_iterator(elements); }
+        const_iterator end() const { return const_iterator(first_free); }
         const_iterator cbegin() const { return const_iterator(elements); }
         const_iterator cend() const { return const_iterator(first_free); }
 
