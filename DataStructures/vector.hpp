@@ -57,7 +57,7 @@ class vector final
         size_t size() const { return first_free - elements; }
         size_t capacity() const { return cap - elements; }
 
-        // iterator interface (NOTE* IN STL begin() return iterator for non const and const_iterator for const objects, how to achive that?)
+        // iterator interface
         iterator begin() { return iterator(elements); }
         iterator end() { return iterator(first_free); }
         const_iterator begin() const { return const_iterator(elements); }
@@ -404,6 +404,9 @@ inline void vector<T>::reallocate()
 
 	for (size_t i = 0; i != size(); ++i)
     {
+
+        // TO-DO: if cpy ctor throw exception, handle it in try-cath!!!!!
+
         // check if move construcotr of T obj is nothrowable
         if constexpr (std::is_nothrow_move_constructible_v<T>)
         {
