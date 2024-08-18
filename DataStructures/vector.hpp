@@ -230,14 +230,17 @@ inline vector<T>::vector(vector<T> &&rhs) noexcept
 template <typename T>
 inline vector<T>& vector<T>::operator=(const vector<T> &rhs)
 {
-	// call alloc_n_copy to allocate exactly as many elements as in rhs
-	std::pair<T*, T*> data = 
-							alloc_n_copy(rhs.begin(), rhs.end());
+    if(this != &rhs)
+    {
+        // call alloc_n_copy to allocate exactly as many elements as in rhs
+        std::pair<T*, T*> data = 
+                                alloc_n_copy(rhs.begin(), rhs.end());
 
-	free();
+        free();
 
-	elements = data.first;
-	first_free = cap = data.second;
+        elements = data.first;
+        first_free = cap = data.second;
+    }
 
 	return *this;
 }
@@ -246,11 +249,15 @@ inline vector<T>& vector<T>::operator=(const vector<T> &rhs)
 template <typename T>
 inline vector<T>& vector<T>::operator=(vector<T> &&rhs) noexcept
 {
-	elements = rhs.elements;
-    first_free = rhs.first_free;
-    cap = rhs.cap;
+    if(this != &rhs)
+    {
+        free();
+        elements = rhs.elements;
+        first_free = rhs.first_free;
+        cap = rhs.cap;
 
-    rhs.elements = rhs.first_free = rhs.cap = nullptr;
+        rhs.elements = rhs.first_free = rhs.cap = nullptr;
+    }
 
     return *this;
 }
@@ -392,6 +399,9 @@ typename vector<T>::iterator vector<T>::insert(const_iterator pos, T&& val)
 template <typename T>
 inline void vector<T>::reallocate()
 {
+
+    std::cout << "reallocation begin" << std::endl;
+
     // we'll allocate space for twice as many elements as the current size
     size_t new_capacity = size() ? reallocate_size * size() : 1;
 
@@ -424,6 +434,8 @@ inline void vector<T>::reallocate()
     elements = new_data;
     first_free = dest;
     cap = elements + new_capacity;
+
+    std::cout << "reallocation end" << std::endl;
 }
 
 template <typename T>

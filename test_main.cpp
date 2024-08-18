@@ -290,9 +290,18 @@ int main(int argc, char **argv)
     // }
 
 
-    const adstl::vector<int> vec;
-    auto it = vec.begin();
+    adstl::vector<Foo> vec1;
+    vec1.push_back(Foo(1,2));
+    vec1.push_back(Foo(1,2));
+    vec1.push_back(Foo(1,2));
+    vec1.push_back(Foo(1,2));
 
+    std::cout << "MOVE" << std::endl;
+    adstl::vector<Foo> vec2;
+    vec2.push_back(Foo(1,2));
+    vec1 = std::move(vec2);
+
+    std::cout << "END" << std::endl;
     
     
 
